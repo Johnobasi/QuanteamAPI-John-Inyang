@@ -20,7 +20,8 @@ namespace QuanteamAPI.Controllers
         {
             try
             {
-              var response = await _bestStory.GetStory(n);
+                _logger.LogInformation($"Getting best stories for {n}");
+                var response = await _bestStory.GetStory(n);
                 return Ok(response);
             }
             catch (Exception ex)

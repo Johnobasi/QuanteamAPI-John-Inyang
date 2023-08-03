@@ -3,6 +3,7 @@ using QuanteamAPI.Constants;
 using QuanteamAPI.Controllers;
 using QuanteamAPI.ExceptionMiddleware;
 using QuanteamAPI.Models;
+using System.Text.Json;
 
 namespace QuanteamAPI.Abstracts
 {
@@ -33,19 +34,21 @@ namespace QuanteamAPI.Abstracts
                 string storyUrlFormat = _configuration.GetValue<string>("BaseUrls:StoryUrlFormat");
                 string bestStoriesUrl = _configuration.GetValue<string>("BaseUrls:BestStoriesUrl");
                 var bestStoriesResponse = await client.GetAsync(bestStoriesUrl);
-
+                
+                _logger.LogInformation($"{JsonSerializer.Serialize(bestStoriesResponse)}");
 
                 if (!bestStoriesResponse.IsSuccessStatusCode)
                 {
                     return default!;  
                 }
 
+               
                 var bestStories = await bestStoriesResponse.Content.ReadFromJsonAsync<List<int>>();
                 if (bestStories == null)
                 {
                     return default!;
                 }
-
+                _logger.LogInformation($"{JsonSerializer.Serialize(bestStories)}");
                 var stories = new List<StoryResponseObject>();
                 foreach (var storyId in bestStories!.Take(10))
                 {

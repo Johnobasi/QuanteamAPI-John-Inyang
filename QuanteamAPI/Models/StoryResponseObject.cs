@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace QuanteamAPI.Models
 {
-    public class StoryObject
+    public class StoryResponseObject
     {
         public int Id { get; set; }
         public string? Title { get; set; }

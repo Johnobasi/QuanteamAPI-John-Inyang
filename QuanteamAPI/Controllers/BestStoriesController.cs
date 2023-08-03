@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuanteamAPI.Abstracts;
+using QuanteamAPI.Models;
 
 namespace QuanteamAPI.Controllers
 {
@@ -16,11 +17,15 @@ namespace QuanteamAPI.Controllers
         }
 
         [HttpGet(Name = "GetBestStories")]
-        public async Task<IActionResult> Get(int n)
+        public async Task<ActionResult> Get(int n)
         {
             try
             {
                 _logger.LogInformation($"Getting best stories for {n}");
+
+                if(n <= 0)
+                    return BadRequest("Please pass the required parameter: n");
+
                 var response = await _bestStory.GetStory(n);
                 return Ok(response);
             }

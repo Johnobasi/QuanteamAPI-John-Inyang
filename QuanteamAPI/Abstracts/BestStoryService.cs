@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using QuanteamAPI.Constants;
 using QuanteamAPI.Controllers;
 using QuanteamAPI.ExceptionMiddleware;
@@ -11,14 +12,14 @@ namespace QuanteamAPI.Abstracts
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _memoryCache;
-        private readonly IConfiguration _configuration;
+        private readonly BaseUrlsConfiguration _baseUrlsConfiguration;
         private readonly ILogger<BestStoriesController> _logger;
-        public BestStoryService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, IConfiguration configuration, ILogger<BestStoriesController> logger)
+        public BestStoryService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, IOptionsSnapshot<BaseUrlsConfiguration> baseUrlsConfiguration, ILogger<BestStoriesController> logger)
         {
             _httpClientFactory = httpClientFactory;
             _memoryCache = memoryCache;
-            _configuration = configuration;
             _logger = logger;
+            _baseUrlsConfiguration = baseUrlsConfiguration.Value;
         }
         public async Task<List<StoryResponseObject>> GetStory(int n)
         {
@@ -31,8 +32,8 @@ namespace QuanteamAPI.Abstracts
                 }
 
                 var client = _httpClientFactory.CreateClient();
-                string storyUrlFormat = _configuration.GetValue<string>("BaseUrls:StoryUrlFormat");
-                string bestStoriesUrl = _configuration.GetValue<string>("BaseUrls:BestStoriesUrl");
+                string storyUrlFormat = _baseUrlsConfiguration.StoryUrlFormat!;
+                string bestStoriesUrl = _baseUrlsConfiguration.BestStoriesUrl!;
                 var bestStoriesResponse = await client.GetAsync(bestStoriesUrl);
                 
                 _logger.LogInformation($"{JsonSerializer.Serialize(bestStoriesResponse)}");

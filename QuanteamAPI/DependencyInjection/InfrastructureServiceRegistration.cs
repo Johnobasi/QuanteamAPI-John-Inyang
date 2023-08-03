@@ -7,7 +7,7 @@ namespace QuanteamAPI.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<BaseUrls>(configuration.GetSection("BaseUrls"));
+            services.Configure<BaseUrlsConfiguration>(configuration.GetSection("BaseUrls"));
             services.AddHttpClient();
             services.AddMemoryCache();
             services.AddScoped<IBestStory, BestStoryService>();

@@ -50,7 +50,7 @@ namespace QuanteamAPI.Controllers
                     return StatusCode(500, ErrorMessages.FAIL_TO_RETRIEVE);
                 }
 
-                var stories = new List<StoryObject>();
+                var stories = new List<StoryResponseObject>();
                 foreach (var storyId in bestStories!.Take(10))
                 {
                     var story = await _memoryCache.GetOrCreateAsync(storyId.ToString(), async entry =>
@@ -61,7 +61,7 @@ namespace QuanteamAPI.Controllers
                         {
                             return null;
                         }
-                        return await storyResponse.Content.ReadFromJsonAsync<StoryObject>();
+                        return await storyResponse.Content.ReadFromJsonAsync<StoryResponseObject>();
                     });
                     if (story != null)
                     {

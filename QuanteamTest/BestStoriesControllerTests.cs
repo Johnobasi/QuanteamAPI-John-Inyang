@@ -28,13 +28,13 @@ namespace QuanteamTest
             var n = 5;
 
             var fakeBestStories = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            var fakeStories = new List<StoryObject>
+            var fakeStories = new List<StoryResponseObject>
             {
-                new StoryObject { Title = "Fake Story 1", Id = 1 },
-                new StoryObject { Title = "Fake Story 2", Id = 2 },
-                new StoryObject { Title = "Fake Story 3", Id = 3 },
-                new StoryObject { Title = "Fake Story 4", Id = 4 },
-                new StoryObject { Title = "Fake Story 5", Id = 5 },
+                new StoryResponseObject { Title = "Fake Story 1", Id = 1 },
+                new StoryResponseObject { Title = "Fake Story 2", Id = 2 },
+                new StoryResponseObject { Title = "Fake Story 3", Id = 3 },
+                new StoryResponseObject { Title = "Fake Story 4", Id = 4 },
+                new StoryResponseObject { Title = "Fake Story 5", Id = 5 },
                 // Add more fake stories as needed
             };
 
@@ -72,7 +72,7 @@ namespace QuanteamTest
             var actionResult = result as OkObjectResult;
             Assert.NotNull(actionResult);
 
-            var stories = actionResult.Value as List<StoryObject>;
+            var stories = actionResult.Value as List<StoryResponseObject>;
             Assert.Equal(n, stories!.Count);
             // Add additional assertions based on your fakeStories data
 

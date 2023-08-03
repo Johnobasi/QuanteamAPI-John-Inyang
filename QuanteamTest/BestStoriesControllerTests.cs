@@ -10,6 +10,7 @@ using QuanteamAPI.Controllers;
 using QuanteamAPI.Models;
 using System.Net;
 using System.Text.Json;
+using Xunit;
 
 namespace QuanteamTest
 {
@@ -35,10 +36,8 @@ namespace QuanteamTest
                 new StoryResponseObject { Title = "Fake Story 3", Id = 3 },
                 new StoryResponseObject { Title = "Fake Story 4", Id = 4 },
                 new StoryResponseObject { Title = "Fake Story 5", Id = 5 },
-                // Add more fake stories as needed
             };
 
-            // Mock the HTTP client and its behavior
             var responseContent = JsonSerializer.Serialize(fakeBestStories);
             var httpMessageHandler = new Mock<HttpMessageHandler>();
             httpMessageHandler.Protected()
@@ -57,10 +56,6 @@ namespace QuanteamTest
             httpClient.BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/");
             httpClientFactoryMock.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
-
-      
-
-
             var controller = new BestStoriesController(httpClientFactoryMock.Object, memoryCacheMock.Object, configuration, loggerMock.Object);
 
             // Act
@@ -74,11 +69,8 @@ namespace QuanteamTest
 
             var stories = actionResult.Value as List<StoryResponseObject>;
             Assert.Equal(n, stories!.Count);
-            // Add additional assertions based on your fakeStories data
 
-            // Optionally, verify that the HttpClientFactory.CreateClient method was called once
             httpClientFactoryMock.Verify(factory => factory.CreateClient(It.IsAny<string>()), Times.Once);
-
         }
 
         [Fact]
@@ -112,10 +104,10 @@ namespace QuanteamTest
             {
                 var builder = new ConfigurationBuilder();
                 builder.AddInMemoryCollection(new Dictionary<string, string>
-        {
-            { "BaseUrls:StoryUrlFormat", "https://hacker-news.firebaseio.com/v0/item/{0}.json" },
-            { "BaseUrls:BestStoriesUrl", "https://hacker-news.firebaseio.com/v0/beststories.json" }
-        });
+                {
+                     { "BaseUrls:StoryUrlFormat", "https://hacker-news.firebaseio.com/v0/item/{0}.json" },
+                     { "BaseUrls:BestStoriesUrl", "https://hacker-news.firebaseio.com/v0/beststories.json" }
+                });
                 _section = builder.Build().GetSection("BaseUrls");
             }
 
@@ -128,8 +120,5 @@ namespace QuanteamTest
 
             public IConfigurationSection GetSection(string key) => _section.GetSection(key);
         }
-
-
-
     }
 }

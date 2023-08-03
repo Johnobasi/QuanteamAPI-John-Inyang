@@ -1,8 +1,11 @@
+using QuanteamAPI.Abstracts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpClient(); 
 builder.Services.AddMemoryCache(); 
+builder.Services.AddScoped<IBestStory, BestStoryService>();
 
 
 builder.Services.AddControllers();

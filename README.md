@@ -5,7 +5,7 @@ How to run this project.
 Steps:
 1. Clone repo
 2. Restore nuget packages and ensure your machine is running on AS.NET COre 6
-3. Run the API and use swagger on browser or postman
+3. Run the API and using swagger on browser or postman
 
 **Approach Used.**
 1. I used IHttpClient to consume the APIs
@@ -14,7 +14,6 @@ Steps:
 
 **Future improvement**
 Given time, i would have done the following better.
-1.  Create a static class to handle depenndency injection and then inject in program class.
-2.  Abstract logic into interface and implement same.
-3. Use CQRS pattern to seperate operations and keep code clean and tidy.
-4. Use Option pattern to read configurations from AppsSettings
+1. Clean Architecture
+2. Use CQRS pattern to seperate operations and keep code clean and tidy.
+

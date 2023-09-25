@@ -1,6 +1,6 @@
 **# QuanteamAPI-John-Inyang**
-This is API to fullfil job asessment for Quanteam job with her cient, SANTANDER BANK
-This project is develoepd using ASP.NETCore 6
+
+This project is developed using ASP.NETCore 6
 How to run this project.
 Steps:
 1. Clone repo
